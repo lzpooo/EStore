@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+			"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.briup.estore.dao.ICustomerDao">
+	<insert id="saveCustomer" parameterType="Customer">
+		<selectKey keyColumn="id" keyProperty="id" resultType="Long" order="BEFORE">
+			select customer_seq.nextVal from dual
+		</selectKey>
+		insert into tbl_customer 
+		values(#{id},#{name},#{password},#{zip},#{address},#{telephone},#{email})
+	</insert>
+	<select id="findByName" parameterType="String" resultType="Customer" >
+		select * from tbl_customer
+		where name=#{name}
+	</select>
+	<update id="updateCustomer" parameterType="Customer">
+		update tbl_customer set 
+		password = #{password},
+		zip = #{zip},
+		address = #{address},
+		telephone = #{telephone},
+		email = #{email}
+		where id=#{id}
+	</update>
+	
+</mapper>			
